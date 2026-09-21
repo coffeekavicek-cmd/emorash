@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Jasmina ❤️</title>
+  <style>
+    :root{
+      --bg1:#170710;
+      --bg2:#3d0d29;
+      --bg3:#0c050a;
+      --pink:#ff5d97;
+      --pink2:#ffc1d6;
+      --white:#fff8fc;
+      --muted:rgba(255,248,252,.78);
+      --glass:rgba(255,255,255,.10);
+      --border:rgba(255,255,255,.16);
+      --shadow:0 24px 70px rgba(0,0,0,.35);
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{
+      margin:0; width:100%; height:100%; overflow:hidden;
+      background: linear-gradient(145deg,var(--bg1),var(--bg2) 55%,var(--bg3));
+      color:var(--white);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    body::before{
+      content:"";
+      position:fixed; inset:0;
+      background:
+        radial-gradient(circle at 18% 10%, rgba(255,93,151,.22), transparent 24%),
+        radial-gradient(circle at 82% 12%, rgba(255,193,214,.15), transparent 22%),
+        radial-gradient(circle at 70% 70%, rgba(255,93,151,.10), transparent 24%);
+      pointer-events:none;
+    }
+
+    button,input{ font:inherit; }
+
+    #app{ position:fixed; inset:0; overflow:hidden; }
+
+    .screen{
+      position:absolute; inset:0;
+      display:flex; align-items:center; justify-content:center;
+      padding:22px;
+      opacity:0;
+      transform:scale(1.03) translateY(18px);
+      pointer-events:none;
+      transition:opacity .6s ease, transform .6s cubic-bezier(.2,.8,.2,1);
+    }
+    .screen.active{
+      opacity:1;
+      transform:none;
+      pointer-events:auto;
+    }
+
+    .bg{
+      position:absolute; inset:0;
+      background-size:cover; background-position:center;
+      filter:brightness(.44) saturate(.95);
+      transform:scale(1.05);
+    }
+    .bg::after{
+      content:"";
+      position:absolute; inset:0;
+      background:linear-gradient(to bottom, rgba(9,5,9,.2), rgba(10,5,9,.72) 68%, rgba(10,5,9,.92));
+    }
+
+    .content{
+      position:relative;
+      z-index:3;
+      width:min(940px, 94vw);
+      text-align:center;
+    }
+
+    .glass{
+      background:rgba(255,255,255,.08);
+      border:1px solid var(--border);
+      border-radius:30px;
+      backdrop-filter:blur(18px);
+      box-shadow:var(--shadow);
+    }
+
+    #gate .card{
+      width:min(560px,92vw);
+      margin:auto;
+      padding:32px 22px;
+    }
+
+    .heartIcon{
+      font-size:58px;
+      animation:beat 1.15s infinite;
+      filter:drop-shadow(0 0 16px rgba(255,93,151,.45));
+    }
+
+    @keyframes beat{
+      0%,100%{transform:scale(1)}
+      50%{transform:scale(1.12)}
+    }
+
+    .langs{
+      display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:18px 0 14px;
+    }
+
+    .langBtn{
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.08);
+      color:white; font-weight:800;
+      border-radius:999px;
+      padding:11px 16px;
+      min-width:110px;
+      cursor:pointer;
+      transition:.25s;
+    }
+    .langBtn.active{
+      background:linear-gradient(145deg,var(--pink),#ff2c77);
+      box-shadow:0 10px 24px rgba(255,93,151,.28);
+      transform:translateY(-1px);
+    }
+
+    .dateInput{
+      width:100%;
+      padding:15px 16px;
+      border-radius:18px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.08);
+      color:white;
+      text-align:center;
+      outline:none;
+      font-size:18px;
+    }
+    .dateInput::-webkit-calendar-picker-indicator{ filter:invert(1); }
+
+    .primaryBtn,.nextBtn{
+      border:0;
+      color:white;
+      background:linear-gradient(145deg,var(--pink),#ff2d76);
+      box-shadow:0 14px 28px rgba(255,93,151,.34);
+      cursor:pointer;
+      font-weight:900;
+    }
+
+    .primaryBtn{
+      width:100%;
+      padding:15px 18px;
+      margin-top:12px;
+      border-radius:18px;
+      font-size:17px;
+    }
+
+    .err{
+      min-height:24px;
+      margin-top:10px;
+      color:#ffd4e2;
+      font-weight:700;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      padding:10px 18px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.08);
+      backdrop-filter:blur(12px);
+      margin-bottom:16px;
+      font-weight:700;
+      color:#fff0f6;
+    }
+
+    .heroTitle{
+      font-size:clamp(44px, 9vw, 92px);
+      line-height:.96;
+      margin:0 0 16px;
+      text-shadow:0 10px 35px rgba(0,0,0,.34);
+    }
+
+    .grad{
+      background:linear-gradient(90deg,#fff,#ffd1e0,#ff70a4);
+      -webkit-background-clip:text;
+      color:transparent;
+    }
+
+    .lead{
+      max-width:760px;
+      margin:0 auto;
+      color:rgba(255,255,255,.90);
+      font-size:clamp(18px,3vw,24px);
+      line-height:1.7;
+      text-shadow:0 3px 10px rgba(0,0,0,.24);
+    }
+
+    .photo{
+      width:min(560px,88vw);
+      max-height:min(72vh, 760px);
+      object-fit:cover;
+      border-radius:30px;
+      border:1px solid var(--border);
+      box-shadow:0 24px 70px rgba(0,0,0,.42);
+      animation:photoFloat 7s ease-in-out infinite alternate;
+    }
+
+    @keyframes photoFloat{
+      from{ transform:scale(1) translateY(0); }
+      to{ transform:scale(1.03) translateY(-8px); }
+    }
+
+    .caption{
+      margin-top:16px;
+      font-size:clamp(24px,4.8vw,36px);
+      font-weight:900;
+      text-shadow:0 0 22px rgba(255,93,151,.24);
+    }
+
+    .subCap{
+      margin-top:8px;
+      color:var(--muted);
+      font-size:15px;
+    }
+
+    .videoWrap{
+      width:min(820px,94vw);
+      margin:auto;
+      padding:10px;
+      border-radius:28px;
+      background:rgba(255,255,255,.08);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+    }
+    video{
+      width:100%;
+      max-height:68vh;
+      border-radius:20px;
+      background:#000;
+      display:block;
+    }
+
+    .progress{
+      position:absolute;
+      top:max(16px, env(safe-area-inset-top));
+      left:50%;
+      transform:translateX(-50%);
+      z-index:30;
+      display:flex;
+      gap:7px;
+      padding:0 10px;
+    }
+    .progressDot{
+      width:8px; height:8px;
+      border-radius:50%;
+      background:rgba(255,255,255,.30);
+      transition:.25s;
+    }
+    .progressDot.active{
+      width:26px;
+      border-radius:999px;
+      background:#fff;
+    }
+
+    .nextBtn{
+      position:absolute;
+      left:50%;
+      bottom:max(18px, env(safe-area-inset-bottom));
+      transform:translateX(-50%);
+      z-index:40;
+      padding:13px 24px;
+      min-width:180px;
+      border-radius:999px;
+      font-size:17px;
+    }
+
+    .musicBtn{
+      position:absolute;
+      right:16px;
+      bottom:max(18px, env(safe-area-inset-bottom));
+      z-index:45;
+      width:58px; height:58px;
+      border-radius:50%;
+      border:1px solid rgba(255,255,255,.18);
+      background:linear-gradient(145deg,#ff5b94,#ff2f77);
+      color:white;
+      font-size:24px;
+      box-shadow:var(--shadow);
+      cursor:pointer;
+      display:none;
+    }
+
+    /* Letter scene */
+    .letterTitle{
+      font-size:clamp(32px,7vw,54px);
+      margin-bottom:22px;
+      text-shadow:0 5px 18px rgba(0,0,0,.28);
+    }
+
+    .envelopeWrap{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      min-height:380px;
+    }
+
+    .envelope{
+      position:relative;
+      width:min(430px,88vw);
+      height:300px;
+      perspective:1200px;
+      cursor:pointer;
+      user-select:none;
+    }
+
+    .envShadow{
+      position:absolute;
+      inset:auto 10% 12px;
+      height:24px;
+      background:radial-gradient(circle, rgba(0,0,0,.28), transparent 70%);
+      filter:blur(8px);
+    }
+
+    .envBack{
+      position:absolute;
+      left:50%; bottom:18px;
+      transform:translateX(-50%);
+      width:84%;
+      height:62%;
+      background:linear-gradient(180deg,#ffeef5,#fff7fa);
+      border-radius:20px;
+      box-shadow:0 12px 22px rgba(0,0,0,.10);
+      overflow:hidden;
+      transition:transform .9s cubic-bezier(.2,.8,.2,1), height .9s cubic-bezier(.2,.8,.2,1), bottom .9s cubic-bezier(.2,.8,.2,1);
+      z-index:1;
+      border:1px solid rgba(156,50,91,.10);
+    }
+
+    .envLetterInner{
+      position:absolute;
+      inset:20px 24px;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-start;
+      gap:12px;
+      color:#501c33;
+      opacity:0;
+      transform:translateY(16px);
+      transition:opacity .55s ease .55s, transform .55s ease .55s;
+      text-align:left;
+    }
+
+    .envLetterInner h3{
+      margin:0;
+      font-size:28px;
+      color:#812248;
+    }
+
+    .envLetterInner p{
+      margin:0;
+      font-size:16px;
+      line-height:1.78;
+      color:#5a2440;
+    }
+
+    .envFront{
+      position:absolute;
+      left:50%; bottom:0;
+      transform:translateX(-50%);
+      width:100%;
+      height:68%;
+      z-index:3;
+    }
+    .envFront::before{
+      content:"";
+      position:absolute; inset:0;
+      background:linear-gradient(180deg,#ff77a7,#d94d87);
+      clip-path:polygon(0 0,50% 54%,100% 0,100% 100%,0 100%);
+      border-radius:0 0 28px 28px;
+      box-shadow:0 24px 40px rgba(0,0,0,.15);
+    }
+    .envLeft, .envRight{
+      position:absolute; bottom:0; width:50%; height:100%;
+      background:linear-gradient(180deg,#f76ea0,#d1457f);
+      z-index:4;
+    }
+    .envLeft{
+      left:0;
+      clip-path:polygon(0 0,100% 52%,100% 100%,0 100%);
+      border-bottom-left-radius:28px;
+    }
+    .envRight{
+      right:0;
+      clip-path:polygon(0 52%,100% 0,100% 100%,0 100%);
+      border-bottom-right-radius:28px;
+    }
+
+    .envFlap{
+      position:absolute;
+      left:50%;
+      top:30px;
+      transform:translateX(-50%) rotateX(0deg);
+      transform-origin:top;
+      width:0; height:0;
+      border-left:min(220px,44vw) solid transparent;
+      border-right:min(220px,44vw) solid transparent;
+      border-top:145px solid #f59dbd;
+      z-index:5;
+      filter:drop-shadow(0 10px 16px rgba(0,0,0,.10));
+      transition:transform .95s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .seal{
+      position:absolute;
+      left:50%; top:130px;
+      transform:translateX(-50%);
+      width:58px; height:58px;
+      border-radius:50%;
+      display:grid; place-items:center;
+      background:linear-gradient(145deg,#ff5f95,#ff2d76);
+      box-shadow:0 12px 24px rgba(255,93,151,.30);
+      z-index:6;
+      color:white;
+      font-size:24px;
+      transition:opacity .4s ease;
+    }
+
+    .tapHint{
+      margin-top:18px;
+      color:var(--muted);
+      font-weight:700;
+      font-size:14px;
+    }
+
+    .envelope.open .envFlap{
+      transform:translateX(-50%) rotateX(180deg);
+    }
+    .envelope.open .envBack{
+      height:92%;
+      bottom:56px;
+      transform:translateX(-50%);
+    }
+    .envelope.open .envLetterInner{
+      opacity:1;
+      transform:none;
+    }
+    .envelope.open .seal{ opacity:0; }
+
+    /* reason cards */
+    .reasonCard{
+      width:min(560px,90vw);
+      margin:auto;
+      padding:34px 26px;
+      position:relative;
+      overflow:hidden;
+    }
+    .reasonCard::before{
+      content:"";
+      position:absolute;
+      inset:-35%;
+      background:linear-gradient(120deg,transparent 42%, rgba(255,255,255,.08) 50%, transparent 58%);
+      transform:translateX(-40%) rotate(10deg);
+      animation:shine 5s linear infinite;
+    }
+    @keyframes shine{
+      to{ transform:translateX(42%) rotate(10deg); }
+    }
+
+    .reasonEmoji{
+      font-size:68px;
+      margin-bottom:8px;
+      display:block;
+      animation:emojiFloat 2.8s ease-in-out infinite;
+      filter:drop-shadow(0 8px 12px rgba(255,93,151,.20));
+    }
+
+    @keyframes emojiFloat{
+      50%{ transform:translateY(-8px) scale(1.08); }
+    }
+
+    .reasonTitle{
+      font-size:clamp(38px,8vw,64px);
+      margin:0 0 12px;
+      position:relative;
+      z-index:2;
+    }
+
+    .reasonText{
+      margin:0;
+      font-size:clamp(18px,3.5vw,23px);
+      line-height:1.75;
+      color:var(--muted);
+      position:relative;
+      z-index:2;
+    }
+
+    /* portrait scene */
+    .portraitWrap{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:14px;
+    }
+
+    #portraitCanvas{
+      width:min(620px, 90vw);
+      height:auto;
+      max-height:70vh;
+      border-radius:28px;
+      background:#12070f;
+      border:1px solid var(--border);
+      box-shadow:0 24px 70px rgba(0,0,0,.38);
+    }
+
+    .finalName{
+      font-size:clamp(46px, 10vw, 88px);
+      font-weight:1000;
+      line-height:1;
+      background:linear-gradient(90deg,#fff,#ffc7da,#ff6ea6);
+      -webkit-background-clip:text;
+      color:transparent;
+      text-shadow:0 0 22px rgba(255,93,151,.28);
+    }
+
+    .finalSub{
+      color:#ffdbe7;
+      font-size:clamp(18px,3vw,24px);
+      font-weight:800;
+    }
+
+    .finalTip{
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    /* particles */
+    .floaters{
+      position:absolute; inset:0;
+      pointer-events:none; overflow:hidden;
+      z-index:2;
+    }
+    .floater{
+      position:absolute;
+      bottom:-60px;
+      animation:rise linear forwards;
+      filter:drop-shadow(0 0 10px rgba(255,93,151,.26));
+    }
+    @keyframes rise{
+      to{
+        transform:translateY(-116vh) rotate(560deg);
+        opacity:0;
+      }
+    }
+
+    @media(max-width:700px){
+      .screen{ padding:18px 14px 92px; }
+      .heroTitle{ font-size:clamp(42px,12vw,72px); }
+      .lead{ font-size:18px; }
+      .caption{ font-size:30px; }
+      .nextBtn{ min-width:170px; padding:13px 20px; }
+      .letterTitle{ margin-bottom:14px; }
+      .envelopeWrap{ min-height:340px; }
+      .envelope{ height:270px; }
+      .envLetterInner h3{ font-size:24px; }
+      .envLetterInner p{ font-size:15px; line-height:1.7; }
+      .envelope.open .envBack{ bottom:48px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="progress" id="progress"></div>
+    <button class="musicBtn" id="musicToggle">🎵</button>
+    <div class="floaters" id="floaters"></div>
+    <audio id="bgMusic" loop preload="auto">
+      <source src="assets/music.mp3" type="audio/mpeg">
+    </audio>
+
+    <section class="screen active" id="gate">
+      <div class="content">
+        <div class="glass card">
+          <div class="heartIcon">❤️</div>
+          <h1 id="gateTitle" style="font-size:clamp(30px,7vw,48px); margin:12px 0 10px;">Jasmina uchun syurpriz</h1>
+          <p id="gateSub" style="color:var(--muted); line-height:1.7; font-size:16px; max-width:430px; margin:0 auto 0;">
+            Tilni tanlang va tug‘ilgan kun sanasini kiriting.
+          </p>
+
+          <div class="langs">
+            <button class="langBtn active" data-lang="uz">O‘zbekcha</button>
+            <button class="langBtn" data-lang="ru">Русский</button>
+            <button class="langBtn" data-lang="en">English</button>
+          </div>
+
+          <input class="dateInput" id="birthdayInput" type="date">
+          <button class="primaryBtn" id="openSiteBtn">Syurprizni ochish 💌</button>
+          <div class="err" id="errorBox"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" data-scene="0">
+      <div class="bg" style="background-image:url('assets/img2.jpg')"></div>
+      <div class="content">
+        <div class="eyebrow" id="heroEyebrow">✨ Bugun eng go‘zal qizning kuni ✨</div>
+        <h1 class="heroTitle" id="heroTitle">Tug‘ilgan kuning bilan,<br><span class="grad">Jasmina ❤️</span></h1>
+        <p class="lead" id="heroText">
+          Sen bu dunyoga nafaqat chiroy, balki iliqlik, noziklik va mehr ham olib kelgansan.
+        </p>
+      </div>
+      <button class="nextBtn nextSceneBtn">Davom etish ✨</button>
+    </section>
+
+    <section class="screen" data-scene="1">
+      <div class="content">
+        <img class="photo" src="assets/img1.jpg" alt="">
+        <div class="caption" id="cap1">Nozik va go‘zal ✨</div>
+        <div class="subCap" id="cap1Sub">Sen kirgan joyga o‘zgacha nur kiradi.</div>
+      </div>
+      <button class="nextBtn nextSceneBtn">Davom etish ✨</button>
+    </section>
+
+    <section class="screen" data-scene="2">
+      <div class="content">
+        <img class="photo" src="assets/img2.jpg" alt="">
+        <div class="caption" id="cap2">Gullar ham senga havas qiladi 🌹</div>
+        <div class="subCap" id="cap2Sub">Har bir surating qalbda iz qoldiradi.</div>
+      </div>
+      <button class="nextBtn nextSceneBtn">Davom etish ✨</button>
+    </section>
+
+    <section class="screen" data-scene="3">
+      <div class="content">
+        <img class="photo" src="assets/img3.jpg" alt="">
+        <div class="caption" id="cap3">Tun ham sen bilan chiroyli 🌙</div>
+        <div class="subCap" id="cap3Sub">Go‘zallik, latofat va sirli joziba.</div>
+      </div>
+      <button class="nextBtn nextSceneBtn">Davom etish ✨</button>
+    </section>
+
+    <section class="screen" data-scene="4">
+      <div class="content">
+        <div class="videoWrap glass">
+          <video id="memoryVideo" controls playsinline>
+            <source src="assets/memory.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="caption" id="videoCaption" style="font-size:28px;">Bir lahza. Bir xotira. Bir his. ❤️</div>
+      </div>
+      <button class="nextBtn nextSceneBtn">Davom etish ✨</button>
+    </section>
+
+    <section class="screen" data-scene="5">
+      <div class="content">
+        <h2 class="letterTitle" id="letterTitle">Senga atalgan xat 💌</h2>
+        <div class="envelopeWrap">
+          <div class="envelope" id="envelope">
+            <div class="envShadow"></div>
+            <div class="envBack">
+              <div class="envLetterInner">
+                <h3 id="letterName">Jasmina ❤️</h3>
+                <p id="letterText">
+                  Tug‘ilgan kuning bilan. Qalbing doim xotirjam, ko‘zlaring quvonchdan porlab tursin.
+                  Sen sevgi, mehr va e’tibor ichida yashashga loyiqsan. Yangi yoshing senga chinakam baxt,
+                  unutilmas lahzalar va eng chiroyli orzularingning amalga oshishini olib kelsin.
+                </p>
+              </div>
+            </div>
+            <div class="envFront">
+              <div class="envLeft"></div>
+              <div class="envRight"></div>
+            </div>
+            <div class="envFlap"></div>
+            <div class="seal">💖</div>
+          </div>
+        </div>
+        <div class="tapHint" id="tapHint">Konvertni bos — xat очiladi 💗</div>
+      </div>
+      <button class="nextBtn" id="letterNextBtn" style="display:none;">Davom etish ✨</button>
+    </section>
+
+    <section class="screen" data-scene="6">
+      <div class="content">
+        <div class="reasonCard glass">
+          <span class="reasonEmoji">🌷</span>
+          <h2 class="reasonTitle" id="reason1Title">Nafislik</h2>
+          <p class="reasonText" id="reason1Text">
+            Sening har bir harakatingda latofat bor. Sen kirgan joyga o‘ziga xos go‘zallik kiradi.
+          </p>
+        </div>
+      </div>
+      <button class="nextBtn nextSceneBtn">Davom etish ✨</button>
+    </section>
+
+    <section class="screen" data-scene="7">
+      <div class="content">
+        <div class="reasonCard glass">
+          <span class="reasonEmoji">✨</span>
+          <h2 class="reasonTitle" id="reason2Title">Sehr</h2>
+          <p class="reasonText" id="reason2Text">
+            Sening kulishing oddiy emas — u atrofdagilarning kayfiyatini ham yoritib yuboradi.
+          </p>
+        </div>
+      </div>
+      <button class="nextBtn nextSceneBtn">Davom etish ✨</button>
+    </section>
+
+    <section class="screen" data-scene="8">
+      <div class="content">
+        <div class="reasonCard glass">
+          <span class="reasonEmoji">❤️</span>
+          <h2 class="reasonTitle" id="reason3Title">Qadr</h2>
+          <p class="reasonText" id="reason3Text">
+            Sen bilan bog‘liq har bir xotira qimmatli. Sen qalb uchun juda yaqin va juda azizsan.
+          </p>
+        </div>
+      </div>
+      <button class="nextBtn nextSceneBtn">Davom etish ✨</button>
+    </section>
+
+    <section class="screen" data-scene="9">
+      <div class="content portraitWrap">
+        <canvas id="portraitCanvas"></canvas>
+        <div class="finalName">JASMINA</div>
+        <div class="finalSub" id="finalSub">Sen uchun, mehr bilan ❤️</div>
+        <div class="finalTip" id="finalTip">Oxirgi syurpriz — ism harflaridan yaralgan portret.</div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const CORRECT_BIRTHDAY = "2006-09-21";
+    let currentLang = "uz";
+    let currentScene = 0;
+    let heartsStarted = false;
+
+    const t = {
+      uz: {
+        gateTitle: "Jasmina uchun syurpriz",
+        gateSub: "Tilni tanlang va tug‘ilgan kun sanasini kiriting.",
+        openBtn: "Syurprizni ochish 💌",
+        emptyError: "Avval sanani kiriting 💗",
+        wrongError: "Bu sana to‘g‘ri emas 😌",
+        next: "Davom etish ✨",
+        heroEyebrow: "✨ Bugun eng go‘zal qizning kuni ✨",
+        heroTitle: "Tug‘ilgan kuning bilan,<br><span class='grad'>Jasmina ❤️</span>",
+        heroText: "Sen bu dunyoga nafaqat chiroy, balki iliqlik, noziklik va mehr ham olib kelgansan.",
+        cap1: "Nozik va go‘zal ✨",
+        cap1Sub: "Sen kirgan joyga o‘zgacha nur kiradi.",
+        cap2: "Gullar ham senga havas qiladi 🌹",
+        cap2Sub: "Har bir surating qalbda iz qoldiradi.",
+        cap3: "Tun ham sen bilan chiroyli 🌙",
+        cap3Sub: "Go‘zallik, latofat va sirli joziba.",
+        videoCaption: "Bir lahza. Bir xotira. Bir his. ❤️",
+        letterTitle: "Senga atalgan xat 💌",
+        tapHint: "Konvertni bos — xat ochiladi 💗",
+        letterText: "Tug‘ilgan kuning bilan. Qalbing doim xotirjam, ko‘zlaring quvonchdan porlab tursin. Sen sevgi, mehr va e’tibor ichida yashashga loyiqsan. Yangi yoshing senga chinakam baxt, unutilmas lahzalar va eng chiroyli orzularingning amalga oshishini olib kelsin.",
+        reason1Title: "Nafislik",
+        reason1Text: "Sening har bir harakatingda latofat bor. Sen kirgan joyga o‘ziga xos go‘zallik kiradi.",
+        reason2Title: "Sehr",
+        reason2Text: "Sening kulishing oddiy emas — u atrofdagilarning kayfiyatini ham yoritib yuboradi.",
+        reason3Title: "Qadr",
+        reason3Text: "Sen bilan bog‘liq har bir xotira qimmatli. Sen qalb uchun juda yaqin va juda azizsan.",
+        finalSub: "Sen uchun, mehr bilan ❤️",
+        finalTip: "Oxirgi syurpriz — ism harflaridan yaralgan portret."
+      },
+      ru: {
+        gateTitle: "Сюрприз для Жасмины",
+        gateSub: "Выберите язык и введите дату рождения.",
+        openBtn: "Открыть сюрприз 💌",
+        emptyError: "Сначала введите дату 💗",
+        wrongError: "Дата неверная 😌",
+        next: "Дальше ✨",
+        heroEyebrow: "✨ Сегодня день самой прекрасной девушки ✨",
+        heroTitle: "С днём рождения,<br><span class='grad'>Жасмина ❤️</span>",
+        heroText: "Ты принесла в этот мир не только красоту, но и тепло, нежность и свет.",
+        cap1: "Нежная и прекрасная ✨",
+        cap1Sub: "Ты приносишь особенный свет куда бы ни пришла.",
+        cap2: "Даже цветы восхищаются тобой 🌹",
+        cap2Sub: "Каждая твоя фотография оставляет след в сердце.",
+        cap3: "Даже ночь красивее рядом с тобой 🌙",
+        cap3Sub: "Красота, изящество и тихая загадочность.",
+        videoCaption: "Один момент. Одно воспоминание. Одно чувство. ❤️",
+        letterTitle: "Письмо для тебя 💌",
+        tapHint: "Нажми на конверт — письмо откроется 💗",
+        letterText: "С днём рождения. Пусть твоё сердце всегда будет спокойным, глаза сияют от радости, а душа будет окружена любовью и заботой. Пусть новый год жизни принесёт тебе настоящее счастье, яркие моменты и исполнение самых красивых желаний.",
+        reason1Title: "Нежность",
+        reason1Text: "В каждом твоём движении есть утончённость. Там, где появляешься ты, становится красивее.",
+        reason2Title: "Магия",
+        reason2Text: "Твоя улыбка — не просто улыбка. Она способна осветить настроение окружающих.",
+        reason3Title: "Ценность",
+        reason3Text: "Каждое воспоминание, связанное с тобой, бесценно. Ты очень близкий и дорогой человек для сердца.",
+        finalSub: "Для тебя, с теплом ❤️",
+        finalTip: "Финальный сюрприз — портрет, созданный из букв имени."
+      },
+      en: {
+        gateTitle: "A surprise for Jasmina",
+        gateSub: "Choose a language and enter the birthday date.",
+        openBtn: "Open the surprise 💌",
+        emptyError: "Please enter the date first 💗",
+        wrongError: "That date is not correct 😌",
+        next: "Continue ✨",
+        heroEyebrow: "✨ Today is the day of the most beautiful girl ✨",
+        heroTitle: "Happy Birthday,<br><span class='grad'>Jasmina ❤️</span>",
+        heroText: "You brought not only beauty into this world, but also warmth, softness, and light.",
+        cap1: "Soft and beautiful ✨",
+        cap1Sub: "You bring a special light wherever you appear.",
+        cap2: "Even flowers admire you 🌹",
+        cap2Sub: "Every photo of you leaves a mark in the heart.",
+        cap3: "Even the night is prettier with you 🌙",
+        cap3Sub: "Beauty, grace, and a quiet mystery.",
+        videoCaption: "One moment. One memory. One feeling. ❤️",
+        letterTitle: "A letter for you 💌",
+        tapHint: "Tap the envelope — the letter will open 💗",
+        letterText: "Happy birthday. May your heart always stay calm, your eyes shine with joy, and your soul be surrounded by love and care. May this new year of your life bring true happiness, unforgettable moments, and the fulfillment of your most beautiful dreams.",
+        reason1Title: "Grace",
+        reason1Text: "There is elegance in every move you make. Wherever you appear, beauty quietly appears with you.",
+        reason2Title: "Magic",
+        reason2Text: "Your smile is not just a smile — it brightens the mood of everyone around you.",
+        reason3Title: "Preciousness",
+        reason3Text: "Every memory connected with you is precious. You are deeply dear and close to the heart.",
+        finalSub: "For you, with love ❤️",
+        finalTip: "Final surprise — a portrait created from the letters of your name."
+      }
+    };
+
+    const sceneCount = 10;
+
+    function applyLanguage(lang){
+      currentLang = lang;
+      document.documentElement.lang = lang;
+      document.querySelectorAll(".langBtn").forEach(btn=>{
+        btn.classList.toggle("active", btn.dataset.lang === lang);
+      });
+
+      const tr = t[lang];
+      document.getElementById("gateTitle").textContent = tr.gateTitle;
+      document.getElementById("gateSub").textContent = tr.gateSub;
+      document.getElementById("openSiteBtn").textContent = tr.openBtn;
+
+      document.getElementById("heroEyebrow").textContent = tr.heroEyebrow;
+      document.getElementById("heroTitle").innerHTML = tr.heroTitle;
+      document.getElementById("heroText").textContent = tr.heroText;
+
+      document.getElementById("cap1").textContent = tr.cap1;
+      document.getElementById("cap1Sub").textContent = tr.cap1Sub;
+      document.getElementById("cap2").textContent = tr.cap2;
+      document.getElementById("cap2Sub").textContent = tr.cap2Sub;
+      document.getElementById("cap3").textContent = tr.cap3;
+      document.getElementById("cap3Sub").textContent = tr.cap3Sub;
+      document.getElementById("videoCaption").textContent = tr.videoCaption;
+
+      document.getElementById("letterTitle").textContent = tr.letterTitle;
+      document.getElementById("tapHint").textContent = tr.tapHint;
+      document.getElementById("letterText").textContent = tr.letterText;
+
+      document.getElementById("reason1Title").textContent = tr.reason1Title;
+      document.getElementById("reason1Text").textContent = tr.reason1Text;
+      document.getElementById("reason2Title").textContent = tr.reason2Title;
+      document.getElementById("reason2Text").textContent = tr.reason2Text;
+      document.getElementById("reason3Title").textContent = tr.reason3Title;
+      document.getElementById("reason3Text").textContent = tr.reason3Text;
+
+      document.getElementById("finalSub").textContent = tr.finalSub;
+      document.getElementById("finalTip").textContent = tr.finalTip;
+
+      document.querySelectorAll(".nextBtn").forEach(btn=>{
+        if(btn.id !== "openSiteBtn") btn.textContent = tr.next;
+      });
+
+      if(currentScene === 9) drawPortrait();
+    }
+
+    document.querySelectorAll(".langBtn").forEach(btn=>{
+      btn.addEventListener("click", ()=>applyLanguage(btn.dataset.lang));
+    });
+
+    function buildProgress(){
+      const wrap = document.getElementById("progress");
+      wrap.innerHTML = "";
+      for(let i=0;i<sceneCount;i++){
+        const dot = document.createElement("div");
+        dot.className = "progressDot" + (i===currentScene ? " active" : "");
+        wrap.appendChild(dot);
+      }
+    }
+
+    function showScene(index){
+      document.querySelectorAll(".screen[data-scene]").forEach(scene=>scene.classList.remove("active"));
+      const target = document.querySelector(`.screen[data-scene="${index}"]`);
+      if(target){
+        target.classList.add("active");
+        currentScene = index;
+        buildProgress();
+      }
+
+      if(index !== 4){
+        const video = document.getElementById("memoryVideo");
+        video.pause();
+      }
+
+      if(index === 9){
+        setTimeout(drawPortrait, 250);
+      }
+    }
+
+    function nextScene(){
+      if(currentScene < sceneCount - 1){
+        showScene(currentScene + 1);
+      }
+    }
+
+    document.querySelectorAll(".nextSceneBtn").forEach(btn=>{
+      btn.addEventListener("click", nextScene);
+    });
+
+    document.getElementById("letterNextBtn").addEventListener("click", nextScene);
+
+    document.getElementById("openSiteBtn").addEventListener("click", ()=>{
+      const value = document.getElementById("birthdayInput").value;
+      const tr = t[currentLang];
+      const error = document.getElementById("errorBox");
+
+      if(!value){
+        error.textContent = tr.emptyError;
+        return;
+      }
+      if(value !== CORRECT_BIRTHDAY){
+        error.textContent = tr.wrongError;
+        return;
+      }
+
+      error.textContent = "";
+      document.getElementById("gate").classList.remove("active");
+      document.getElementById("musicToggle").style.display = "grid";
+      const music = document.getElementById("bgMusic");
+      music.volume = 0.48;
+      music.play().catch(()=>{});
+      if(!heartsStarted){
+        heartsStarted = true;
+        startFloaters();
+      }
+      showScene(0);
+    });
+
+    document.getElementById("musicToggle").addEventListener("click", ()=>{
+      const music = document.getElementById("bgMusic");
+      const btn = document.getElementById("musicToggle");
+      if(music.paused){
+        music.play().catch(()=>{});
+        btn.textContent = "🎵";
+      }else{
+        music.pause();
+        btn.textContent = "🔇";
+      }
+    });
+
+    const envelope = document.getElementById("envelope");
+    envelope.addEventListener("click", ()=>{
+      if(!envelope.classList.contains("open")){
+        envelope.classList.add("open");
+        document.getElementById("letterNextBtn").style.display = "block";
+        document.getElementById("tapHint").style.opacity = ".8";
+      }
+    });
+
+    function startFloaters(){
+      setInterval(()=>{
+        const el = document.createElement("div");
+        el.className = "floater";
+        el.textContent = Math.random() > 0.28 ? "❤️" : (Math.random() > 0.5 ? "✨" : "🌸");
+        el.style.left = Math.random() * 100 + "vw";
+        el.style.fontSize = (14 + Math.random() * 20) + "px";
+        el.style.opacity = .22 + Math.random() * .55;
+        el.style.animationDuration = (6 + Math.random() * 5) + "s";
+        document.getElementById("floaters").appendChild(el);
+        setTimeout(()=>el.remove(), 12000);
+      }, 650);
+    }
+
+    function drawPortrait(){
+      const canvas = document.getElementById("portraitCanvas");
+      const ctx = canvas.getContext("2d");
+      const img = new Image();
+
+      img.onload = () => {
+        const mobile = window.innerWidth <= 700;
+        const cssW = Math.min(window.innerWidth * 0.90, 620);
+        const cssH = cssW * (img.height / img.width);
+
+        const dpr = Math.max(1, window.devicePixelRatio || 1);
+        canvas.width = cssW * dpr;
+        canvas.height = cssH * dpr;
+        canvas.style.width = cssW + "px";
+        canvas.style.height = cssH + "px";
+        ctx.setTransform(dpr,0,0,dpr,0,0);
+
+        const cols = mobile ? 42 : 62;
+        const rows = Math.round(cols * img.height / img.width);
+
+        const off = document.createElement("canvas");
+        const offCtx = off.getContext("2d", { willReadFrequently: true });
+        off.width = cols;
+        off.height = rows;
+        offCtx.drawImage(img, 0, 0, cols, rows);
+        const data = offCtx.getImageData(0,0,cols,rows).data;
+
+        const bgGrad = ctx.createLinearGradient(0,0,0,cssH);
+        bgGrad.addColorStop(0, "#13070f");
+        bgGrad.addColorStop(1, "#220814");
+        ctx.fillStyle = bgGrad;
+        ctx.fillRect(0,0,cssW,cssH);
+
+        const cellW = cssW / cols;
+        const cellH = cssH / rows;
+        const word = currentLang === "ru" ? "ЖАСМИНА " : "JASMINA ";
+        let n = 0;
+
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+
+        for(let y=0;y<rows;y++){
+          for(let x=0;x<cols;x++){
+            const i = (y*cols + x) * 4;
+            const r = data[i];
+            const g = data[i+1];
+            const b = data[i+2];
+            const alpha = data[i+3] / 255;
+            if(alpha < .08) continue;
+
+            const bright = (r*0.299 + g*0.587 + b*0.114) / 255;
+            if(bright < 0.11) continue;
+
+            const ch = word[n % word.length];
+            n++;
+
+            const fontSize = Math.max(mobile ? 8.8 : 8, Math.min(cellW * 1.0, cellH * 0.94));
+            ctx.font = "900 " + fontSize + "px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace";
+
+            const rr = Math.min(255, Math.max(180, r + 64));
+            const gg = Math.min(235, Math.max(92, g + 34));
+            const bb = Math.min(255, Math.max(145, b + 72));
+            const a = Math.min(1, 0.38 + bright * 0.92);
+
+            ctx.lineWidth = mobile ? 1.05 : .85;
+            ctx.strokeStyle = "rgba(28, 0, 18, .85)";
+            ctx.strokeText(ch, (x+.5)*cellW, (y+.5)*cellH);
+
+            ctx.fillStyle = `rgba(${rr},${gg},${bb},${a})`;
+            ctx.fillText(ch, (x+.5)*cellW, (y+.5)*cellH);
+          }
+        }
+
+        const overlayH = mobile ? 86 : 96;
+        const overlay = ctx.createLinearGradient(0, cssH - overlayH, 0, cssH);
+        overlay.addColorStop(0, "rgba(15,4,10,0)");
+        overlay.addColorStop(.35, "rgba(15,4,10,.72)");
+        overlay.addColorStop(1, "rgba(15,4,10,.96)");
+        ctx.fillStyle = overlay;
+        ctx.fillRect(0, cssH - overlayH, cssW, overlayH);
+
+        const label = currentLang === "ru" ? "ЖАСМИНА" : "JASMINA";
+        const size = mobile ? Math.max(34, Math.min(52, cssW * .12)) : Math.max(42, Math.min(72, cssW * .075));
+        ctx.font = "1000 " + size + "px Inter, Arial, sans-serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.lineWidth = 2.2;
+        ctx.strokeStyle = "rgba(64,0,28,.92)";
+        ctx.strokeText(label, cssW/2, cssH - 44);
+
+        const labelGrad = ctx.createLinearGradient(cssW*.2, 0, cssW*.8, 0);
+        labelGrad.addColorStop(0, "#ffffff");
+        labelGrad.addColorStop(.5, "#ffc6da");
+        labelGrad.addColorStop(1, "#ff5d97");
+        ctx.fillStyle = labelGrad;
+        ctx.fillText(label, cssW/2, cssH - 44);
+      };
+
+      img.src = "assets/img3.jpg";
+    }
+
+    window.addEventListener("resize", ()=>{
+      if(currentScene === 9) drawPortrait();
+    });
+
+    applyLanguage("uz");
+    buildProgress();
+  </script>
+</body>
+</html>
